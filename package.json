@@ -21,7 +21,7 @@
   "homepage": "https://github.com/backkit/redis#readme",
   "dependencies": {
     "inquirer": "^8.2.2",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^3.14.1",
     "redis": "^4.0.6"
   },
   "publishConfig": {
