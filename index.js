@@ -18,13 +18,18 @@ class Redis {
     const logger = this.logger;
     const redisconf = this.config.get('redis');
     let params = {};
-    params.socket = {
-      host: redisconf.host || '127.0.0.1',
-      port: redisconf.port || 6379
-    };
+    if (redisconf.url) {
+      params.url = redisconf.url;
+    } else {
+      params.socket = {
+        host: redisconf.host || '127.0.0.1',
+        port: redisconf.port || 6379
+      };
+      if (redisconf.user) params.username = redisconf.user;
+      if (redisconf.pass) params.password = redisconf.pass;
+      if (redisconf.tls) params.tls = (redisconf.tls === true);
+    }
     params.database = selectedDb || 0;
-    if (redisconf.user) params.username = redisconf.user;
-    if (redisconf.pass) params.password = redisconf.pass;
     
     const client = redis.createClient(params);
 

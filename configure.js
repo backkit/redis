@@ -15,8 +15,7 @@ autoconf('redis')
   }
 ]))
 .default(self => ({
-  host: "localhost",
-  port: 6379
+  url: "redis://localhost:6379"
 }))
 .prompt(self => ([
   {
@@ -24,26 +23,11 @@ autoconf('redis')
       fileNotFound: self.serviceConfigMainYML
     },
     type: 'input',
-    name: 'host',
-    message: "redis host",
-    default: self.defaultConfig.host,
+    name: 'url',
+    message: "redis url string",
+    default: self.defaultConfig.url,
     validate: function(value) {
       return true;
-    }
-  },
-  {
-    if: {
-      fileNotFound: self.serviceConfigMainYML
-    },
-    type: 'input',
-    name: 'port',
-    message: "redis port",
-    default: self.defaultConfig.port,
-    filter: function(value) {
-      return ~~(value);
-    },
-    validate: function(value) {
-      return ~~(value) > 0;
     }
   }
 ]))
